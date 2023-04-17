@@ -5,9 +5,7 @@ require 'json'
 class PokemonController < ApplicationController
   def index
     pokemon = params[:pokemon]
-    conn = Faraday.new('https://pokeapi.co/api/v2/')
-    response = conn.get("pokemon-form/#{pokemon}")
-    @pokemon = JSON.parse(response.body, symbolize_names: true)
+    @pokemon = PokemonFacade.get_a_pokemon(pokemon)
     # binding.irb
     # require 'pry'; binding.pry
   end
