@@ -7,7 +7,8 @@ class PokemonController < ApplicationController
     pokemon = params[:pokemon]
     conn = Faraday.new('https://pokeapi.co/api/v2/')
     response = conn.get("pokemon-form/#{pokemon}")
-    @pokemon = JSON.parse(response.body, symbolize_names: true)
+    data = JSON.parse(response.body, symbolize_names: true)
+    @pokemon = PokemonPoro.new(data)
     # binding.irb
     # require 'pry'; binding.pry
   end
